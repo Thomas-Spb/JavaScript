@@ -1,21 +1,16 @@
-'use sctrict';
+const item = prompt('наименование товара');
+const count = Number(prompt('Количество товара'));
+const category = prompt('Категория товара');
+const price = Number(prompt('Цена товара'));
 
-{
-  const carBrand = 'Vaz';
-  let carsQuantity = 5;
-  const category = 'Car';
-  let carPrice = 500;
-
-  console.log('carBrand: ', carBrand);
-  console.log('totalPrice:', carsQuantity * carPrice);
+if (isNaN(count)) {
+  alert('Вы ввели неправильное кол-во');
 }
 
-{
-  const item = 'smart проектор philips';
-  const count = 15;
-  const category = 'видео техника';
-  const price = 1200;
-
-  console.log(item);
-  console.log(`общая сумма товара: ${count * price}`);
+if (isNaN(price)) {
+  alert('Вы ввели некорректную цену');
 }
+
+item.trim();
+category.trim();
+console.log(`На складе ${count} единицы товара "${item}" на сумму ${count * price} деревянных`);
