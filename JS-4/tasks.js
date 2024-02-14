@@ -11,7 +11,7 @@ totalBalls = mathBall + langBall + infBall;
 
 console.log('totalBalls: ', totalBalls);
 
-if (totalBalls <= 265) {
+if (totalBalls < 265) {
   console.log('Печально, вы не поступили!');
 } else {
   console.log('Поздравляю, вы поступили на бюджет!');
