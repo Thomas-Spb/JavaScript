@@ -22,12 +22,12 @@
       console.log('большк 30к', sum);
     }
 
-    if (promo == 'METHED') {
+    if (promo === 'METHED') {
       sum -= sum * 0.1;
       console.log('скидка METHED', sum);
     }
 
-    if (promo == 'G3H2Z1' && sum > 2000) {
+    if (promo === 'G3H2Z1' && sum > 2000) {
       sum -= 500;
       console.log('скидка G3H2Z1', sum);
     }
