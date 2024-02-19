@@ -3,8 +3,17 @@
 {
   function arrayGenerator(count, n, m, option) {
     const array = [],
-      min = n,
+      min = 0,
+      max = 0;
+
+    if (+n < +m) {
+      min = n;
       max = m;
+    } else if (+n > +m) {
+      min = m;
+      max = n;
+    }
+
     let newArray = [];
 
     for (let i = 0; i < count; i++) {
