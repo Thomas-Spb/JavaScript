@@ -10,6 +10,5 @@
       }
     }
   };
-
   console.log(isPrime(152));
 }

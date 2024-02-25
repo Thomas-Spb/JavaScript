@@ -6,10 +6,10 @@
       min = 0,
       max = 0;
 
-    if (+n < +m) {
+    if (n < m) {
       min = n;
       max = m;
-    } else if (+n > +m) {
+    } else if (n > m) {
       min = m;
       max = n;
     }
