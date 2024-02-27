@@ -14,7 +14,6 @@
 
   const checkNumber = num => {
     return isNaN(+num);
-    explorer.exe;
   };
 
   const getPlayerNumber = number => {
@@ -22,16 +21,19 @@
 
     if (playerNumber === null || '') {
       alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
-      return;
-    } else if (checkNumber(playerNumber)) {
-      alert('Введите число');
-      return getPlayerNumber(number);
-    } else if (playerNumber > number || playerNumber < 1) {
-      alert('Введите число с нужного диапозона');
-      return getPlayerNumber(number);
-    }
+      return false;
+    } else {
+      if (checkNumber(playerNumber)) {
+        alert('Введите число');
+        return getPlayerNumber(number);
+      }
+      if (playerNumber > number || playerNumber < 1) {
+        alert('Введите число с нужного диапозона');
+        return getPlayerNumber(number);
+      }
 
-    return +playerNumber;
+      return +playerNumber;
+    }
   };
 
   const getPlayerNumberChoose = () => {
@@ -39,12 +41,12 @@
     console.log('Польователь угадывает: ', playerNumberChoose);
 
     if (playerNumberChoose === null) {
-      alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
       (playerBalls = 0), (botBalls = 0);
+      //   alert(`Отмена "МЫ тут" игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
       endGame = 0;
-      return;
+      return false;
     }
-
+    debugger;
     if (checkNumber(playerNumberChoose)) {
       alert('Введите число');
       return getPlayerNumber();
@@ -61,7 +63,7 @@
   let number = 0;
 
   const game = (playerBalls = 5, botBalls = 5) => {
-    flag = 0;
+    flag = 1;
     let botNumber = 0;
     let playerNumber = 0;
     // start();
@@ -81,25 +83,27 @@
         \nВаше число: ${playerNumber}`);
       }
 
-      flag++;
+      //   flag++;
     };
 
     const botChosen = (playerNumberChoose, botNumberRandom) => {
-      if (botNumberRandom % 2 === playerNumberChoose) {
-        botBalls -= botNumberRandom;
-        playerBalls += botNumberRandom;
+      if (playerNumberChoose === 0 || 1) {
+        if (botNumberRandom % 2 === playerNumberChoose) {
+          botBalls -= botNumberRandom;
+          playerBalls += botNumberRandom;
 
-        alert(`Вы выйграли \nБот загадал  ${botNumberRandom} 
+          alert(`Вы выйграли \nБот загадал  ${botNumberRandom} 
         \nВаше число: ${playerNumberChoose} \n(0 - четное, 1 - не четное)`);
-      } else {
-        botBalls += botNumberRandom;
-        playerBalls -= botNumberRandom;
+        } else {
+          botBalls += botNumberRandom;
+          playerBalls -= botNumberRandom;
 
-        alert(`Вы проиграли \nБот загадал  ${botNumberRandom}  
+          alert(`Вы проиграли \nБот загадал  ${botNumberRandom}  
         \nВаше число: ${playerNumberChoose} \n(0 - четное, 1 - не четное) \n number: ${number}`);
+        }
       }
 
-      flag--;
+      //   flag--;
     };
 
     while (playerBalls > 0 && botBalls > 0 && endGame > 0) {
@@ -109,17 +113,12 @@
         } else {
           number = playerBalls;
         }
-
+        //    Компьютер выбирает число
         botNumber = getRandomIntInclusive(0, 1);
-        console.log('botNumber: ', botNumber);
+        //    Игрок выбирает число
         playerNumber = getPlayerNumber(number);
-        console.log('playerNumber: ', playerNumber);
-        console.log('Компьютер выбрал: ', botNumber);
-        playerNumber = +playerNumber;
-        console.log('Игрок ввел: ', playerNumber);
-
         playerChosen();
-      } else {
+      } else if (flag === 1) {
         if (playerBalls > botBalls) {
           number = botBalls;
         } else {
@@ -128,22 +127,32 @@
         let botNumberRandom;
         let playerNumberChoose = getPlayerNumberChoose();
         console.log('playerNumberChoose: ', playerNumberChoose);
+        if (playerNumberChoose === null) {
+          alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
+          (playerBalls = 0), (botBalls = 0);
+          endGame = 0;
+          return false;
+        }
         botNumberRandom = getRandomIntInclusive(1, number);
         console.log('botNumberRandom: ', botNumberRandom);
 
         botChosen(playerNumberChoose, botNumberRandom);
       }
 
-      alert(`компьютер: ${botBalls}\nИгрок: ${playerBalls}`);
+      //   alert(`компьютер: ${botBalls}\nИгрок: ${playerBalls}`);
     }
 
     alert(`Игра окончена компьютер: ${botBalls}\nИгрок: ${playerBalls}`);
 
     let answer = confirm('Играем еще?');
     if (answer) {
-      game();
+      playerBalls = 5;
+      botBalls = 5;
+      return game();
+    } else {
+      return;
     }
-    return game;
+    game;
   };
 
   window.MARBLE = game;
