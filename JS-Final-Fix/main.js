@@ -4,7 +4,7 @@
   let playerBalls = 5;
   let botBalls = 5;
   let flag = 0;
-  let endGame = 1;
+  //   let endGame = 1;
 
   const getRandomIntInclusive = (min, max) => {
     min = Math.ceil(min);
@@ -43,7 +43,7 @@
     if (playerNumberChoose === null) {
       (playerBalls = 0), (botBalls = 0);
       //   alert(`Отмена "МЫ тут" игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
-      endGame = 0;
+
       return false;
     }
     debugger;
@@ -63,7 +63,7 @@
   let number = 0;
 
   const game = (playerBalls = 5, botBalls = 5) => {
-    flag = 1;
+    flag = 0;
     let botNumber = 0;
     let playerNumber = 0;
     // start();
@@ -83,7 +83,7 @@
         \nВаше число: ${playerNumber}`);
       }
 
-      //   flag++;
+      flag++;
     };
 
     const botChosen = (playerNumberChoose, botNumberRandom) => {
@@ -103,10 +103,10 @@
         }
       }
 
-      //   flag--;
+      flag--;
     };
 
-    while (playerBalls > 0 && botBalls > 0 && endGame > 0) {
+    while (playerBalls > 0 && botBalls > 0) {
       if (flag === 0) {
         if (playerBalls > botBalls) {
           number = botBalls;
