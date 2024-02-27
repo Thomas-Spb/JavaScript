@@ -3,6 +3,4 @@
 // const startGame = window.RPS();
 // startGame();
 
-const startMarble = () => window.MARBLE();
-
-startMarble();
+window.MARBLE();
