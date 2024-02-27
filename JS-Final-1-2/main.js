@@ -5,86 +5,6 @@
   let botBalls = 5;
   let flag = 0;
 
-  //   ==========================
-  //   let flag;
-
-  //   const start = () => {
-  //     const FIGURES_RUS = ['камень', 'ножницы', 'бумага'];
-
-  //     const MESSAGE_RUS = {
-  //       tie: 'Ничья!',
-  //       win: 'Вы выиграли!',
-  //       lose: 'Вы проиграли!',
-  //       exit: 'Действительно ли вы хотите выйти?',
-  //       move: 'Введите ваш ход (камень, ножницы, бумага)',
-  //       invalid: 'Неверный ход, пожалуйста, попробуйте еще раз.',
-  //     };
-
-  //     const getRandomIntInclusive = (min, max) => {
-  //       return Math.floor(Math.random() * (max - min + 1)) + min;
-  //     };
-
-  //     const getFigure = () => {
-  //       const botFigureNumber = getRandomIntInclusive(1, 3) - 1;
-  //       // console.log('botFigureNumber: ', botFigureNumber);
-
-  //       let botFigure;
-  //       return (botFigure = FIGURES_RUS[botFigureNumber]);
-  //     };
-  //     let figures = FIGURES_RUS;
-  //     let messages = MESSAGE_RUS;
-
-  //     let result = {
-  //       message: '',
-  //     };
-
-  //     let flag;
-  //     let computerMove = getFigure();
-
-  //     let playerMove = prompt(messages.move);
-
-  //     if (playerMove === null) {
-  //       const gameCancel = confirm(messages.exit);
-  //       if (gameCancel) {
-  //         alert(`
-  //             Надо определить кто угадывает первый`);
-  //         start();
-  //       } else {
-  //         start();
-  //       }
-  //     } else if (playerMove[0] === 'к') {
-  //       playerMove = 'камень';
-  //     } else if (playerMove[0] === 'б') {
-  //       playerMove = 'бумага';
-  //     } else if (playerMove[0] === 'н') {
-  //       playerMove = 'ножницы';
-  //     } else if (figures.indexOf(playerMove) === -1) {
-  //       alert(messages.invalid);
-  //       return start();
-  //     }
-
-  //     console.log('herer');
-  //     console.log('playerMove: ', playerMove);
-  //     console.log('computerMove: ', computerMove);
-  //     if (computerMove === playerMove) {
-  //       result.message = MESSAGE_RUS.tie;
-  //       start();
-  //     } else if (
-  //       (computerMove === 'камень' && playerMove === 'бумага') ||
-  //       (computerMove === 'ножницы' && playerMove === 'камень') ||
-  //       (computerMove === 'бумага' && playerMove === 'ножницы')
-  //     ) {
-  //       alert(MESSAGE_RUS.win);
-  //       flag = 0;
-  //     } else {
-  //       alert(MESSAGE_RUS.lose);
-  //       flag = 1;
-  //     }
-  //     console.log('flag: ', flag);
-  //   };
-  //   console.log('flag: ', flag);
-  //   ==========================
-
   const getRandomIntInclusive = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -92,38 +12,38 @@
   };
 
   const checkNumber = num => {
-    return isNaN(num);
+    if (isNaN(num)) {
+      return true;
+      debugger;
+    } else {
+      return false;
+      debugger;
+    }
   };
 
   const getPlayerNumber = number => {
-    let playerNumber = prompt(`Введите кол-во шаров от 1 до ${number}`);
+    let playerNumber = +prompt(`Введите кол-во шаров от 1 до ${number}`);
 
-    if (playerNumber === null) {
+    if (playerNumber === null || '') {
       alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
       return;
     }
-
     if (checkNumber(playerNumber)) {
       alert('Введите число');
-      return getPlayerNumber();
+      return getPlayerNumber(number);
     }
 
     if (playerNumber > number || playerNumber < 1) {
       alert('Введите число с нужного диапозона');
-      return getPlayerNumber();
+      return getPlayerNumber(number);
     }
 
     return playerNumber;
   };
 
   const getPlayerNumberChoose = () => {
-    let playerNumberChoose = +prompt('Введите 0 || 1 (четное || нечЕткое =))');
+    let playerNumberChoose = +prompt('Введите 0 или 1 (четное или не четное число)');
     console.log('Польователь угадывает: ', playerNumberChoose);
-
-    if (playerNumberChoose === null) {
-      alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
-      return;
-    }
 
     if (checkNumber(playerNumberChoose)) {
       alert('Введите число');
@@ -134,14 +54,17 @@
       alert('Введите число от 0 до 1');
       return getPlayerNumberChoose();
     }
-
+    if (playerNumberChoose === null || '') {
+      alert(`Отмена игры \nКомпьютер: ${botBalls}\nИгрок: ${playerBalls}`);
+      return;
+    }
     return playerNumberChoose;
   };
 
   let number = 0;
 
   const game = (playerBalls = 5, botBalls = 5) => {
-    console.log('flag: ', flag);
+    flag = 0;
     let botNumber = 0;
     let playerNumber = 0;
     // start();
@@ -151,12 +74,14 @@
         botBalls += playerNumber;
         playerBalls -= playerNumber;
 
-        alert('Lozzzzeeee');
+        alert(`Вы проиграли \nБот загадал  ${botNumber} \n(0 - четное, 1 - не четное)
+        \nВаше число: ${playerNumber}`);
       } else {
         botBalls -= playerNumber;
         playerBalls += playerNumber;
 
-        alert('Wwiinnn');
+        alert(`Вы выйграли \nБот загадал  ${botNumber} \n(0 - четное, 1 - не четное)
+        \nВаше число: ${playerNumber}`);
       }
 
       flag++;
@@ -167,12 +92,14 @@
         botBalls -= botNumberRandom;
         playerBalls += botNumberRandom;
 
-        alert('Wwiinnn');
+        alert(`Вы выйграли \nБот загадал  ${botNumberRandom} 
+        \nВаше число: ${playerNumberChoose} \n(0 - четное, 1 - не четное)`);
       } else {
         botBalls += botNumberRandom;
         playerBalls -= botNumberRandom;
 
-        alert('Lozzzzeeee');
+        alert(`Вы проиграли \nБот загадал  ${botNumberRandom}  
+        \nВаше число: ${playerNumberChoose} \n(0 - четное, 1 - не четное) \n number: ${number}`);
       }
 
       flag--;
@@ -196,8 +123,13 @@
 
         playerChosen();
       } else {
+        if (playerBalls > botBalls) {
+          number = botBalls;
+        } else {
+          number = playerBalls;
+        }
         let playerNumberChoose = getPlayerNumberChoose();
-        let botNumberRandom = getRandomIntInclusive(0, number);
+        let botNumberRandom = getRandomIntInclusive(1, number);
 
         botChosen(playerNumberChoose, botNumberRandom);
       }
